@@ -43,7 +43,7 @@ class WebScraper:
         # Find and loop through each dl element if there are some
         if current_element.findNext('dl'):
             while current_element.findNext('dl'):
-                onlyArtist = False
+                self.onlyArtist = False
                 current_element = current_element.findNext('dl')
                 current_artist = current_element.getText()
 
@@ -56,7 +56,7 @@ class WebScraper:
         
         # Handle the case if there is no dl element in HTML source code
         else:
-            onlyArtist = True
+            self.onlyArtist = True
             albums = []
             current_artist = self.artist_name
             albums_ul = current_element.findNext('ul')
@@ -71,7 +71,7 @@ class WebScraper:
             print(f'Albums of {self.artist_name}:')
             print('*'*30)
             for artist, albums in self.album_dict.items():
-                if not onlyArtist:
+                if not self.onlyArtist:
                     print(f'With artist: {artist}')
                 for album in albums:
                     print(album)
