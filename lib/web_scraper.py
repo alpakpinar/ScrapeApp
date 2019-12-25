@@ -2,7 +2,6 @@
 
 import requests
 from bs4 import BeautifulSoup
-import tkinter as tk
 
 class WebScraper:
     '''Class for scraping Wikipedia for artists.
