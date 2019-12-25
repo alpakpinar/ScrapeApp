@@ -47,16 +47,18 @@ class ScrapeApp:
 		
 		# Set the album_dict: self.album_dict will be filled with relevant albums
 		scraper._set_album_dict()
-		album_list = []
+
+		album_list_str = f'Albums of {artist_name}:\n' + '*'*30 + '\n'
 		for artist, albums in scraper.album_dict.items():
+			if not scraper.onlyArtist:
+				album_list_str += f'{artist}:\n' + '*'*30 + '\n'
 			for album in albums:
-				album_list.append(album)
+				album_list_str += f'{album}\n'
+			
+			album_list_str += '*'*30 + '\n'
 
-		# Create the output text
-		album_list_text = '\n'.join(album_list)
-
-		# Create the text widget
-		self.text_widget.insert('1.0', album_list_text)
+		# Update the text on the text widget 
+		self.text_widget.insert('1.0', album_list_str)
 
 
 app = ScrapeApp()
