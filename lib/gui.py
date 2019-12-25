@@ -21,7 +21,7 @@ class ScrapeApp:
 		self.button = tk.Button(self.root)
 		self.button['text'] = 'Get Albums'
 		self.button['command'] = partial(self.dump_albums, event=None) 
-		self.button.pack(side='bottom')
+		self.button.pack(side='top')
 
 		# Text widget for output
 		self.text_widget = tk.Text(self.root, width=200, height=200) 
