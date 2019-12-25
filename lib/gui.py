@@ -12,14 +12,20 @@ class ScrapeApp:
 		self.label = tk.Label(self.root, text='Artist Name')
 		self.label.pack(side='top')
 
+		# Entry field for artist name
 		self.entry = tk.Entry(self.root)
 		self.entry.pack(side='top')
 
+		# Button widget
 		self.button = tk.Button(self.root)
 		self.button['text'] = 'Get Albums'
 		self.button['command'] = self.dump_albums 
 		self.button.pack(side='bottom')
-	
+
+		# Text widget for output
+		self.text_widget = tk.Text(self.root, width=200, height=200) 
+		self.text_widget.pack(side='bottom')
+
 	def dump_num_albums(self):
 		'''Dump number of albums into the GUI for given artist.'''
 		artist_name = self.entry.get()
@@ -48,12 +54,9 @@ class ScrapeApp:
 
 		# Create the output text
 		album_list_text = '\n'.join(album_list)
-		
+
 		# Create the text widget
-		self.text_widget = tk.Text(self.root) 
-		self.text_widget.tag_configure('center', justify='center')
-		self.text_widget.pack(side='bottom')
-		self.text_widget.insert(tk.END, album_list_text)
+		self.text_widget.insert('1.0', album_list_text)
 
 
 app = ScrapeApp()
