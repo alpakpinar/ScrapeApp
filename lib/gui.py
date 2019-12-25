@@ -64,6 +64,3 @@ class ScrapeApp:
 		# Update the text on the text widget 
 		self.text_widget.insert('1.0', album_list_str)
 
-
-app = ScrapeApp()
-app.root.mainloop()
