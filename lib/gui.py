@@ -1,21 +1,23 @@
 import tkinter as tk
 from web_scraper import WebScraper
 
-class ScrapeApp(tk.Tk):
+class ScrapeApp:
 	def __init__(self):
-		tk.Tk.__init__(self)
+		self.root = tk.Tk()
+		self.root.title('ScrapeApp')
+		self.root.geometry('500x500')
 		self.create_widgets()
 	
 	def create_widgets(self):
-		self.label = tk.Label(self, text='Artist Name')
+		self.label = tk.Label(self.root, text='Artist Name')
 		self.label.pack(side='top')
 
-		self.entry = tk.Entry(self)
+		self.entry = tk.Entry(self.root)
 		self.entry.pack(side='top')
 
-		self.button = tk.Button(self)
-		self.button['text'] = 'Get Number of Albums'
-		self.button['command'] = self.dump_num_albums 
+		self.button = tk.Button(self.root)
+		self.button['text'] = 'Get Albums'
+		self.button['command'] = self.dump_albums 
 		self.button.pack(side='bottom')
 	
 	def dump_num_albums(self):
@@ -23,9 +25,36 @@ class ScrapeApp(tk.Tk):
 		artist_name = self.entry.get()
 		scraper = WebScraper(artist_name)
 		text = f'Number of albums for {artist_name}: {scraper.num_albums}'
-		self.new_label = tk.Label(self, text=text)
+		self.new_label = tk.Label(self.root, text=text)
 		self.new_label.pack(side='bottom')
+
+	def dump_albums(self):
+		'''Dump list of albums into the GUI for given artist.'''
+		# If previous text is present, delete it
+		try:
+			self.text_widget.delete(1.0, tk.END)
+		except:
+			pass
+
+		artist_name = self.entry.get()
+		scraper = WebScraper(artist_name)
+		
+		# Set the album_dict: self.album_dict will be filled with relevant albums
+		scraper._set_album_dict()
+		album_list = []
+		for artist, albums in scraper.album_dict.items():
+			for album in albums:
+				album_list.append(album)
+
+		# Create the output text
+		album_list_text = '\n'.join(album_list)
+		
+		# Create the text widget
+		self.text_widget = tk.Text(self.root) 
+		self.text_widget.tag_configure('center', justify='center')
+		self.text_widget.pack(side='bottom')
+		self.text_widget.insert(tk.END, album_list_text)
 
 
 app = ScrapeApp()
-app.mainloop()
+app.root.mainloop()
