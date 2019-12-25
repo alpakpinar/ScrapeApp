@@ -1,5 +1,6 @@
 import tkinter as tk
 from web_scraper import WebScraper
+from functools import partial
 
 class ScrapeApp:
 	def __init__(self):
@@ -7,7 +8,7 @@ class ScrapeApp:
 		self.root.title('ScrapeApp')
 		self.root.geometry('500x500')
 		self.create_widgets()
-	
+
 	def create_widgets(self):
 		self.label = tk.Label(self.root, text='Artist Name')
 		self.label.pack(side='top')
@@ -19,12 +20,15 @@ class ScrapeApp:
 		# Button widget
 		self.button = tk.Button(self.root)
 		self.button['text'] = 'Get Albums'
-		self.button['command'] = self.dump_albums 
+		self.button['command'] = partial(self.dump_albums, event=None) 
 		self.button.pack(side='bottom')
 
 		# Text widget for output
 		self.text_widget = tk.Text(self.root, width=200, height=200) 
 		self.text_widget.pack(side='bottom')
+		
+		# Bind enter (return) key with the button
+		self.root.bind('<Return>', self.dump_albums)
 
 	def dump_num_albums(self):
 		'''Dump number of albums into the GUI for given artist.'''
@@ -34,7 +38,7 @@ class ScrapeApp:
 		self.new_label = tk.Label(self.root, text=text)
 		self.new_label.pack(side='bottom')
 
-	def dump_albums(self):
+	def dump_albums(self, event):
 		'''Dump list of albums into the GUI for given artist.'''
 		# If previous text is present, delete it
 		try:
