@@ -49,8 +49,15 @@ class ScrapeApp:
 		artist_name = self.entry.get()
 		scraper = WebScraper(artist_name)
 		
-		# Set the album_dict: self.album_dict will be filled with relevant albums
-		scraper._set_album_dict()
+		# Set the album_dict containing the album list for the artist
+		# if the artist can be found in the Wikipedia link.
+		# Otherwise, display an error message and terminate the function.
+		try:
+			scraper._set_album_dict()
+		except:
+			error_msg = f"Oops! Couldn't find data for {artist_name}."
+			self.text_widget.insert('1.0', error_msg)
+			return -1
 
 		album_list_str = f'Albums of {artist_name}:\n' + '*'*30 + '\n'
 		for artist, albums in scraper.album_dict.items():
