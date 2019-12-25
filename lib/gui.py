@@ -1,5 +1,5 @@
 import tkinter as tk
-from web_scraper import WebScraper
+from .web_scraper import WebScraper
 from functools import partial
 
 class ScrapeApp:
