@@ -3,10 +3,16 @@ from .web_scraper import WebScraper
 from functools import partial
 
 class ScrapeApp:
-	def __init__(self):
-		self.root = tk.Tk()
-		self.root.title('ScrapeApp')
-		self.root.geometry('500x500')
+	def __init__(self, root):
+		# Carry over the root window
+		# from the start page
+		self.root = root
+
+		# Clean contents from the start page
+		for child in self.root.winfo_children():
+			child.destroy()
+		
+		# Create new widgets
 		self.create_widgets()
 
 	def create_widgets(self):
@@ -120,7 +126,7 @@ class StartWindow:
 
 	def launch_app(self):
 		'''Launch the ScrapeApp.'''
-		app = ScrapeApp()
+		app = ScrapeApp(self.root)
 		app.root.mainloop()
 
 
