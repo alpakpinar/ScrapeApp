@@ -87,10 +87,15 @@ class StartWindow:
 		start_button_style = button_style['Start Button']
 		quit_button_style = button_style['Quit Button']
 
-		self.button = tk.Button(self.root, **start_button_style)
-		self.button['text'] = 'Get Started!'
-		self.button['command'] = self.launch_app
-		self.button.pack(side='top')
+		self.start_button = tk.Button(self.root, **start_button_style)
+		self.start_button['text'] = 'Get Started!'
+		self.start_button['command'] = self.launch_app
+		self.start_button.pack(side='top')
+
+		self.quit_button = tk.Button(self.root, **quit_button_style)
+		self.quit_button['text'] = 'Quit'
+		self.quit_button['command'] = self.root.destroy
+		self.quit_button.pack(side='bottom')
 
 	def get_button_styles(self):
 		'''Get a dictionary containing the style of 
