@@ -80,14 +80,34 @@ class StartWindow:
 		self.create_widgets()
 	
 	def create_widgets(self):
-		self.label = tk.Label(self.root, text='Scrape App', font=('Times', 22))
+		self.label = tk.Label(self.root, text='ScrapeApp', font=('Times', 22))
 		self.label.pack(side='top')
 
-		self.button = tk.Button(self.root)
+		button_style = self.get_button_styles()
+		start_button_style = button_style['Start Button']
+		quit_button_style = button_style['Quit Button']
+
+		self.button = tk.Button(self.root, **start_button_style)
 		self.button['text'] = 'Get Started!'
-		self.button['font'] = ('Times', 22) 
 		self.button['command'] = self.launch_app
 		self.button.pack(side='top')
+
+	def get_button_styles(self):
+		'''Get a dictionary containing the style of 
+		the "Start" and "Quit" buttons that appear 
+		in the starting page.'''
+		style = {
+			'Start Button' : {
+				'font': ('Calibri', 22, 'bold', 'underline'),
+				'borderwidth': 4,
+				'foreground' : 'red'
+			},
+			'Quit Button' : {
+				'font' : ('Calibri', 20)
+			}
+		}
+
+		return style
 
 	def launch_start_window(self):
 		'''Launch the start window.'''
