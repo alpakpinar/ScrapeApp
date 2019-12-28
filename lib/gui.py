@@ -28,6 +28,12 @@ class ScrapeApp:
 		self.button['text'] = 'Get Albums'
 		self.button['command'] = partial(self.dump_albums, event=None) 
 		self.button.pack(side='top')
+		
+		# Back button widget
+		self.back_button = tk.Button(self.root)
+		self.back_button['text'] = 'Go Back'
+		self.back_button['command'] = self.go_back 
+		self.back_button.pack(side='bottom')
 
 		# Text widget for output
 		self.text_widget = tk.Text(self.root, width=200, height=200) 
@@ -77,12 +83,28 @@ class ScrapeApp:
 		# Update the text on the text widget 
 		self.text_widget.insert('1.0', album_list_str)
 
+	def go_back(self):
+		'''From ScrapeApp, go back to the main page.'''
+		start_window = StartWindow(root=self.root)
+		start_window.launch_start_window()
+
 class StartWindow:
-	'''Start window for the ScrapeApp.'''
-	def __init__(self):
-		self.root = tk.Tk()
-		self.root.title('ScrapeApp')
-		self.root.geometry('500x500')
+	'''Starting window (main page) for the ScrapeApp.'''
+	def __init__(self, root=None):
+		# Carry over the previous page if exists
+		# (Access via back button from the app)
+		# else, create a new one
+		if root:
+			self.root = root
+			
+			# Clean contents from previous app page 
+			for child in self.root.winfo_children():
+				child.destroy()
+		else:
+			self.root = tk.Tk()
+			self.root.title('ScrapeApp')
+			self.root.geometry('500x500')
+
 		self.create_widgets()
 	
 	def create_widgets(self):
