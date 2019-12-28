@@ -57,7 +57,7 @@ Let It Be (1970)
 				'height' : 1
 			},
 			'Text' : {
-				'font' : ('Calibri', 14),
+				'font' : ('Calibri', 14, 'italic'),
 				'width' : 200,
 				'height' : 20
 			}
