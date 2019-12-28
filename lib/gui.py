@@ -15,8 +15,23 @@ class ScrapeApp:
 		# Create new widgets
 		self.create_widgets()
 
+	def _dummy_text(self):
+		'''Dummy text output for testing purposes.'''
+		text_top = '(Some) albums of the Beatles:'
+		text_bottom = '''
+Please Please Me (1963)
+A Hard Day's Night (1964)
+Help! (1965)
+Revolver (1966)
+Abbey Road (1969)
+Let It Be (1970)
+		'''
+		self.text_widget_top.insert(tk.END, text_top)
+		self.text_widget_bottom.insert(tk.END, text_bottom)
+
+
 	def create_widgets(self):
-		self.label = tk.Label(self.root, text='Artist Name')
+		self.label = tk.Label(self.root, text='Enter artist name:')
 		self.label.pack(side='top')
 
 		# Entry field for artist name
@@ -25,8 +40,8 @@ class ScrapeApp:
 
 		# Button widget
 		self.button = tk.Button(self.root)
-		self.button['text'] = 'Get Albums'
-		self.button['command'] = partial(self.dump_albums, event=None) 
+		self.button['text'] = 'Get Albums!'
+		self.button['command'] = self._dummy_text 
 		self.button.pack(side='top')
 		
 		# Back button widget
@@ -34,11 +49,26 @@ class ScrapeApp:
 		self.back_button['text'] = 'Go Back'
 		self.back_button['command'] = self.go_back 
 		self.back_button.pack(side='bottom')
+	
+		text_style = {
+			'Header' : {
+				'font' : ('Calibri', 14, 'bold', 'underline'),
+				'width' : 200,
+				'height' : 1
+			},
+			'Text' : {
+				'font' : ('Calibri', 14),
+				'width' : 200,
+				'height' : 20
+			}
+		}
 
 		# Text widget for output
-		self.text_widget = tk.Text(self.root, width=200, height=200) 
-		self.text_widget.pack(side='bottom')
-		
+		self.text_widget_top = tk.Text(self.root, **text_style['Header']) 
+		self.text_widget_top.pack(side='top')
+		self.text_widget_bottom = tk.Text(self.root, **text_style['Text']) 
+		self.text_widget_bottom.pack(side='top')
+
 		# Bind enter (return) key with the button
 		self.root.bind('<Return>', self.dump_albums)
 
@@ -100,6 +130,7 @@ class StartWindow:
 			# Clean contents from previous app page 
 			for child in self.root.winfo_children():
 				child.destroy()
+
 		else:
 			self.root = tk.Tk()
 			self.root.title('ScrapeApp')
