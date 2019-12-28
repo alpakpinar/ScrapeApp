@@ -71,3 +71,33 @@ class ScrapeApp:
 		# Update the text on the text widget 
 		self.text_widget.insert('1.0', album_list_str)
 
+class StartWindow:
+	'''Start window for the ScrapeApp.'''
+	def __init__(self):
+		self.root = tk.Tk()
+		self.root.title('ScrapeApp')
+		self.root.geometry('500x500')
+		self.create_widgets()
+	
+	def create_widgets(self):
+		self.label = tk.Label(self.root, text='Scrape App', font=('Times', 22))
+		self.label.pack(side='top')
+
+		self.button = tk.Button(self.root)
+		self.button['text'] = 'Get Started!'
+		self.button['font'] = ('Times', 22) 
+		self.button['command'] = self.launch_app
+		self.button.pack(side='top')
+
+	def launch_start_window(self):
+		'''Launch the start window.'''
+		self.root.mainloop()
+
+	def launch_app(self):
+		'''Launch the ScrapeApp.'''
+		app = ScrapeApp()
+		app.root.mainloop()
+
+
+
+
