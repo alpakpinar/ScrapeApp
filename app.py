@@ -19,9 +19,9 @@
 from lib.gui import StartWindow
 
 def main():
-	
-	start_window = StartWindow()
-	start_window.launch_start_window()
+    
+    start_window = StartWindow()
+    start_window.launch_start_window()
 
 if __name__ == '__main__':
-	main()
+    main()
