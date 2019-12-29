@@ -41,7 +41,7 @@ Let It Be (1970)
         # Button widget
         self.button = tk.Button(self.root)
         self.button['text'] = 'Get Albums!'
-        self.button['command'] = self.dump_albums 
+        self.button['command'] = self._dummy_text 
         self.button.pack(side='top')
         
         # Back button widget
