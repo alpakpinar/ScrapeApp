@@ -84,7 +84,8 @@ Let It Be (1970)
         '''Dump list of albums into the GUI for given artist.'''
         # If previous text is present, delete it
         try:
-            self.text_widget.delete(1.0, tk.END)
+            self.text_widget_top.delete(1.0, tk.END)
+            self.text_widget_bottom.delete(1.0, tk.END)
         except:
             pass
 
@@ -98,10 +99,11 @@ Let It Be (1970)
             scraper._set_album_dict()
         except:
             error_msg = f"Oops! Couldn't find data for {artist_name}."
-            self.text_widget.insert('1.0', error_msg)
+            self.text_widget_top.insert('1.0', error_msg)
             return -1
 
-        album_list_str = f'Albums of {artist_name}:\n' + '*'*30 + '\n'
+        album_list_header = f'Albums of {artist_name}:'
+        album_list_str = ''
         for artist, albums in scraper.album_dict.items():
             if not scraper.onlyArtist:
                 album_list_str += f'{artist}:\n' + '*'*30 + '\n'
@@ -110,8 +112,9 @@ Let It Be (1970)
             
             album_list_str += '*'*30 + '\n'
 
-        # Update the text on the text widget 
-        self.text_widget.insert('1.0', album_list_str)
+        # Update the text on the text widgets 
+        self.text_widget_top.insert('1.0', album_list_header)
+        self.text_widget_bottom.insert('1.0', album_list_str)
 
     def go_back(self):
         '''From ScrapeApp, go back to the main page.'''
